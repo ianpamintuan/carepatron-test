@@ -31,6 +31,9 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-floating-promises': 'warn',
     '@typescript-eslint/strict-boolean-expressions': 'warn',
-    '@typescript-eslint/triple-slash-reference': 'warn'
+    '@typescript-eslint/triple-slash-reference': 'warn',
+    'react/prop-types': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/no-confusing-void-expression': 'warn'
   }
 };
