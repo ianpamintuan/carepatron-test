@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ClientRow from './ClientRow';
 
-export default function BasicTable({ clients }: { clients: IClient[] }) {
+export const BasicTable = ({ clients }: { clients: IClient[] }) => {
   return (
     <TableContainer component={Paper} sx={{ maxWidth: '100%' }}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -23,7 +23,7 @@ export default function BasicTable({ clients }: { clients: IClient[] }) {
             <ClientRow key={client.id} client={client} />
           ))}
           {!clients ||
-            (!clients.length && (
+            (clients.length === 0 && (
               <TableRow sx={{ padding: 3 }}>
                 <TableCell component="th" scope="row">
                   No clients
@@ -34,4 +34,6 @@ export default function BasicTable({ clients }: { clients: IClient[] }) {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default BasicTable;

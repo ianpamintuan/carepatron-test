@@ -10,7 +10,9 @@ function Clients() {
   const { clients } = state;
 
   useEffect(() => {
-    getClients().then((clients) => dispatch({ type: 'FETCH_ALL_CLIENTS', data: clients }));
+    getClients().then((clients) => {
+      dispatch({ type: 'FETCH_ALL_CLIENTS', data: clients });
+    });
   }, [dispatch]);
 
   return (

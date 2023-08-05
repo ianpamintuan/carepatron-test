@@ -8,7 +8,7 @@ export const StateContext = createContext<{
   state: IApplicationState;
   dispatch: React.Dispatch<Action>;
 }>(
-  // @ts-ignore
+  // @ts-expect-error
   null
 );
 
@@ -16,10 +16,10 @@ export const ACTIONS = {
   FETCH_ALL_CLIENTS: 'FETCH_ALL_CLIENTS'
 };
 
-type Action = {
+interface Action {
   type: keyof typeof ACTIONS;
   data: any;
-};
+}
 
 const reducer = (state: IApplicationState, action: Action) => {
   switch (action.type) {

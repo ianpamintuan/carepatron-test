@@ -1,29 +1,29 @@
-import axios, { AxiosRequestConfig, Method } from 'axios';
+import axios, { type AxiosRequestConfig, type Method } from 'axios';
 
 const API_URL = 'http://localhost:5044';
 
-export function apiGet<T>(uri: string): Promise<T> {
-  return api<T>(uri, 'get', undefined);
+export async function apiGet<T>(uri: string): Promise<T> {
+  return await api<T>(uri, 'get', undefined);
 }
 
-export function apiDelete<T>(uri: string): Promise<T> {
-  return api<T>(uri, 'delete');
+export async function apiDelete<T>(uri: string): Promise<T> {
+  return await api<T>(uri, 'delete');
 }
 
-export function apiPost<T>(
+export async function apiPost<T>(
   uri: string,
   data: any,
   onUploadProgress?: (progressEvent: any) => void
 ): Promise<T> {
-  return api<T>(uri, 'post', data, onUploadProgress);
+  return await api<T>(uri, 'post', data, onUploadProgress);
 }
 
-export function apiPut<T>(uri: string, data: any): Promise<T> {
-  return api<T>(uri, 'put', data);
+export async function apiPut<T>(uri: string, data: any): Promise<T> {
+  return await api<T>(uri, 'put', data);
 }
 
-export function apiPatch<T>(uri: string, data: any): Promise<T> {
-  return api<T>(uri, 'patch', data);
+export async function apiPatch<T>(uri: string, data: any): Promise<T> {
+  return await api<T>(uri, 'patch', data);
 }
 
 async function api<T>(
@@ -32,10 +32,10 @@ async function api<T>(
   data: any = null,
   onUploadProgress?: (progressEvent: any) => void
 ): Promise<T> {
-  return call(uri, method, data, onUploadProgress);
+  return await call(uri, method, data, onUploadProgress);
 }
 
-function call<T>(
+async function call<T>(
   uri: string,
   method: Method = 'GET',
   data: any = null,
@@ -59,7 +59,7 @@ function call<T>(
     };
   }
 
-  return axios(request)
+  return await axios(request)
     .then((response) => {
       return response.data;
     })
