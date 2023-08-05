@@ -1,8 +1,8 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import DataProvider from "./store/DataProvider";
-import Clients from "./pages/Clients";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
+import DataProvider from './store/DataProvider';
+import Clients from './pages/Clients';
 
 export default function App() {
   return (

@@ -1,7 +1,7 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from 'react';
 
 const initialState: IApplicationState = {
-  clients: [],
+  clients: []
 };
 
 export const StateContext = createContext<{
@@ -13,7 +13,7 @@ export const StateContext = createContext<{
 );
 
 export const ACTIONS = {
-  FETCH_ALL_CLIENTS: "FETCH_ALL_CLIENTS",
+  FETCH_ALL_CLIENTS: 'FETCH_ALL_CLIENTS'
 };
 
 type Action = {
@@ -30,18 +30,14 @@ const reducer = (state: IApplicationState, action: Action) => {
   }
 };
 
-export default function DataProvider({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export default function DataProvider({ children }: { children?: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <StateContext.Provider
       value={{
         state,
-        dispatch,
+        dispatch
       }}
     >
       {children}

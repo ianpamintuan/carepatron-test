@@ -1,13 +1,13 @@
-import axios, { AxiosRequestConfig, Method } from "axios";
+import axios, { AxiosRequestConfig, Method } from 'axios';
 
-const API_URL = "http://localhost:5044";
+const API_URL = 'http://localhost:5044';
 
 export function apiGet<T>(uri: string): Promise<T> {
-  return api<T>(uri, "get", undefined);
+  return api<T>(uri, 'get', undefined);
 }
 
 export function apiDelete<T>(uri: string): Promise<T> {
-  return api<T>(uri, "delete");
+  return api<T>(uri, 'delete');
 }
 
 export function apiPost<T>(
@@ -15,20 +15,20 @@ export function apiPost<T>(
   data: any,
   onUploadProgress?: (progressEvent: any) => void
 ): Promise<T> {
-  return api<T>(uri, "post", data, onUploadProgress);
+  return api<T>(uri, 'post', data, onUploadProgress);
 }
 
 export function apiPut<T>(uri: string, data: any): Promise<T> {
-  return api<T>(uri, "put", data);
+  return api<T>(uri, 'put', data);
 }
 
 export function apiPatch<T>(uri: string, data: any): Promise<T> {
-  return api<T>(uri, "patch", data);
+  return api<T>(uri, 'patch', data);
 }
 
 async function api<T>(
   uri: string,
-  method: Method = "GET",
+  method: Method = 'GET',
   data: any = null,
   onUploadProgress?: (progressEvent: any) => void
 ): Promise<T> {
@@ -37,7 +37,7 @@ async function api<T>(
 
 function call<T>(
   uri: string,
-  method: Method = "GET",
+  method: Method = 'GET',
   data: any = null,
   onUploadProgress?: (progressEvent: any) => void
 ): Promise<T> {
@@ -45,17 +45,17 @@ function call<T>(
     url: `${API_URL}/${uri}`,
     withCredentials: true,
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     },
     method,
-    onUploadProgress,
+    onUploadProgress
   };
 
   if (data !== null) {
     request = {
       ...request,
-      data,
+      data
     };
   }
 
@@ -73,7 +73,7 @@ const apiClient = {
   post: apiPost,
   put: apiPut,
   patch: apiPatch,
-  delete: apiDelete,
+  delete: apiDelete
 };
 
 export default apiClient;
