@@ -4,7 +4,7 @@ export interface IProps {
   client: IClient;
 }
 
-export default function ClientListItem({ client }: IProps) {
+export const ClientRow = ({ client }: IProps) => {
   const { id, firstName, lastName, email, phoneNumber } = client;
 
   return (
@@ -25,4 +25,6 @@ export default function ClientListItem({ client }: IProps) {
       <TableCell>{email}</TableCell>
     </TableRow>
   );
-}
+};
+
+export default ClientRow;

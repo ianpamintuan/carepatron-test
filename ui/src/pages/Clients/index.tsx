@@ -2,10 +2,10 @@ import { memo, useContext, useEffect } from 'react';
 import { Paper, Typography } from '@mui/material';
 import { StateContext } from '../../store/DataProvider';
 import Page from '../../components/Page';
-import ClientTable from './ClientTable';
 import { getClients } from '../../services/api';
+import { ClientTable } from '../../components/Clients';
 
-function Clients() {
+const Clients = () => {
   const { state, dispatch } = useContext(StateContext);
   const { clients } = state;
 
@@ -25,6 +25,6 @@ function Clients() {
       </Paper>
     </Page>
   );
-}
+};
 
 export default memo(Clients);
