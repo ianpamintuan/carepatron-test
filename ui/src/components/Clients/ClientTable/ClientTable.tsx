@@ -9,7 +9,7 @@ import { ClientRow } from '../ClientRow';
 
 export const ClientTable = ({ clients }: { clients: IClient[] }) => {
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: '100%' }}>
+    <TableContainer sx={{ maxWidth: '100%' }}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
         <TableHead>
           <TableRow>

@@ -1,5 +1,14 @@
 import React from 'react';
 
-export default function Page({ children }: { children?: React.ReactNode }) {
-  return <div style={{ margin: 'auto', marginTop: 24, maxWidth: '700px' }}>{children}</div>;
+interface PageProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+export default function Page({ children, className }: PageProps) {
+  return (
+    <div style={{ margin: 'auto', marginTop: 24, maxWidth: '700px' }} className={className}>
+      {children}
+    </div>
+  );
 }
