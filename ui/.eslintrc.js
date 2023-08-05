@@ -34,6 +34,7 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 'warn',
     'react/prop-types': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
-    '@typescript-eslint/no-confusing-void-expression': 'warn'
+    '@typescript-eslint/no-confusing-void-expression': 'warn',
+    '@typescript-eslint/no-misused-promises': 'warn'
   }
 };

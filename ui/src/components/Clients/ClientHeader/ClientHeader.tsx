@@ -4,9 +4,18 @@ import { Button, IconButton, InputAdornment, OutlinedInput, Stack } from '@mui/m
 interface ClientHeaderProps {
   searchValue: string;
   setSearchValue: (value: string) => void;
+  setShowCreateModal: (open: boolean) => void;
 }
 
-const ClientHeader: React.FC<ClientHeaderProps> = ({ searchValue, setSearchValue }) => {
+const ClientHeader: React.FC<ClientHeaderProps> = ({
+  searchValue,
+  setSearchValue,
+  setShowCreateModal
+}) => {
+  const handleOpenCreateClientModal = () => {
+    setShowCreateModal(true);
+  };
+
   return (
     <Stack sx={{ marginTop: 4 }} direction="row" justifyContent="space-between">
       <OutlinedInput
@@ -20,10 +29,17 @@ const ClientHeader: React.FC<ClientHeaderProps> = ({ searchValue, setSearchValue
           </InputAdornment>
         }
         sx={{ background: '#fff' }}
-        //   value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={searchValue}
+        onChange={(e) => {
+          setSearchValue(e.target.value);
+        }}
       />
-      <Button variant="contained" disableElevation sx={{ textTransform: 'none' }}>
+      <Button
+        variant="contained"
+        disableElevation
+        sx={{ textTransform: 'none' }}
+        onClick={handleOpenCreateClientModal}
+      >
         Create new client
       </Button>
     </Stack>
