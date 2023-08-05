@@ -1,24 +1,17 @@
-import { memo, useContext, useEffect } from 'react';
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  Paper,
-  Stack,
-  Typography
-} from '@mui/material';
-import { Search } from '@mui/icons-material';
+import { memo, useContext, useEffect, useState } from 'react';
+import { Paper, Typography } from '@mui/material';
 import { StateContext } from '../../store/DataProvider';
 import Page from '../../components/Page';
 import { getClients } from '../../services/api';
 import { ClientTable } from '../../components/Clients';
 
 import './Clients.css';
+import ClientHeader from '../../components/Clients/ClientHeader/ClientHeader';
 
 const Clients = () => {
   const { state, dispatch } = useContext(StateContext);
   const { clients } = state;
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     getClients().then((clients) => {
@@ -31,23 +24,7 @@ const Clients = () => {
       <Typography variant="h4" sx={{ textAlign: 'start' }}>
         Clients
       </Typography>
-      <Stack sx={{ marginTop: 4 }} direction="row" justifyContent="space-between">
-        <OutlinedInput
-          type="text"
-          size="small"
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton aria-label="search" edge="end">
-                <Search />
-              </IconButton>
-            </InputAdornment>
-          }
-          sx={{ background: '#fff' }}
-        />
-        <Button variant="contained" disableElevation sx={{ textTransform: 'none' }}>
-          Create new client
-        </Button>
-      </Stack>
+      <ClientHeader searchValue={searchValue} setSearchValue={setSearchValue} />
       <Paper sx={{ margin: 'auto', marginTop: 3 }} elevation={0}>
         <ClientTable clients={clients} />
       </Paper>
