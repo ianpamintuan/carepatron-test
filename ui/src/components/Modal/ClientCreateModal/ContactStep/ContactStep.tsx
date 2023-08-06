@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { FormInput } from '../../../Form';
+import { PhoneInput } from '../../../PhoneInput';
 
 interface ContactStepProps {
   control: any;
@@ -17,7 +18,7 @@ const ContactStep: React.FC<ContactStepProps> = ({ control, show = false }) => {
         sx={{ marginTop: 2 }}
         required
       />
-      <FormInput
+      <PhoneInput
         name="phoneNumber"
         label="Phone number"
         control={control}

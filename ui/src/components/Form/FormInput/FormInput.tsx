@@ -15,6 +15,9 @@ interface FormInputProps {
 }
 
 const CustomTextField = styled(TextField)<{ size: 'small' | 'medium' }>((props) => ({
+  '& .MuiInputBase-root.MuiOutlinedInput-root': {
+    borderRadius: '8px'
+  },
   '& label.Mui-focused': {
     color: '#A0AAB4'
   },
@@ -46,7 +49,7 @@ const FormInput: React.FC<FormInputProps> = ({
       <Controller
         control={control}
         name={name}
-        render={({ field, fieldState, formState: { errors } }) => {
+        render={({ field, formState: { errors } }) => {
           // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
           const hasError = !!errors?.[name];
 
