@@ -1,25 +1,26 @@
-import { memo, useContext, useEffect, useState } from 'react';
+import { memo, useCallback, useContext, useState } from 'react';
 import { Paper, Typography } from '@mui/material';
 import { StateContext } from '../../store/DataProvider';
 import Page from '../../components/Page';
-import { getClients } from '../../services/api';
 import { ClientTable } from '../../components/Clients';
 
 import './Clients.css';
 import ClientHeader from '../../components/Clients/ClientHeader/ClientHeader';
 import ClientCreateModal from '../../components/Modal/ClientCreateModal/ClientCreateModal';
+import { useDebounce } from 'use-debounce';
 
 const Clients = () => {
-  const { state, dispatch } = useContext(StateContext);
+  const { state } = useContext(StateContext);
   const { clients } = state;
   const [searchValue, setSearchValue] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [search] = useDebounce(searchValue, 500);
 
-  useEffect(() => {
-    getClients().then((clients) => {
-      dispatch({ type: 'FETCH_ALL_CLIENTS', data: clients });
-    });
-  }, [dispatch]);
+  const filteredClients = useCallback(() => 
+    clients.filter((item) => {
+      return item.firstName.toLowerCase().includes(search.toLowerCase()) || item.lastName.toLowerCase().includes(search.toLowerCase());
+    })
+  , [search])
 
   return (
     <Page className="Clients">
@@ -35,7 +36,7 @@ const Clients = () => {
         setShowCreateModal={setShowCreateModal}
       />
       <Paper sx={{ margin: 'auto', marginTop: 3 }} elevation={0}>
-        <ClientTable clients={clients} />
+        <ClientTable clients={filteredClients()} />
       </Paper>
     </Page>
   );
