@@ -1,5 +1,5 @@
 import { Search } from '@mui/icons-material';
-import { IconButton, InputAdornment, OutlinedInput, Stack } from '@mui/material';
+import { IconButton, InputAdornment, OutlinedInput, Stack, useMediaQuery } from '@mui/material';
 import { Button } from '../../Button';
 
 interface ClientHeaderProps {
@@ -13,12 +13,19 @@ const ClientHeader: React.FC<ClientHeaderProps> = ({
   setSearchValue,
   setShowCreateModal
 }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   const handleOpenCreateClientModal = () => {
     setShowCreateModal(true);
   };
 
   return (
-    <Stack sx={{ marginTop: 4 }} direction="row" justifyContent="space-between">
+    <Stack
+      sx={{ marginTop: 4 }}
+      direction={`${isMobile ? 'column' : 'row'}`}
+      justifyContent="space-between"
+      gap="8px"
+    >
       <OutlinedInput
         type="text"
         size="small"

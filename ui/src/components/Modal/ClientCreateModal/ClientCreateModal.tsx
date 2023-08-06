@@ -11,6 +11,7 @@ import {
   Stepper,
   Typography
 } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import CloseIcon from '@mui/icons-material/Close';
 import { useForm } from 'react-hook-form';
 import { NameStep } from './NameStep';
@@ -28,7 +29,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  maxWidth: '500px',
+  width: 'calc(100% - 64px)', // Full width minus left/right padding
   bgcolor: 'background.paper',
   boxShadow: 4,
   p: 4

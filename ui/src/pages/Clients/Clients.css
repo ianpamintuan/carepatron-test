@@ -1,3 +1,9 @@
 .Clients {
   font-family: 'Roboto', sans-serif;
 }
+
+@media screen and (max-width: 768px) {
+  .Clients {
+    padding: 0 16px;
+  }
+}
