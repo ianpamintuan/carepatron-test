@@ -7,10 +7,11 @@ import { type FormInputs } from '../../Modal/ClientCreateModal';
 
 interface FormInputProps {
   label?: string;
-  name: string | any;
+  name: 'email' | 'firstName' | 'lastName' | 'phoneNumber';
   control?: Control<FormInputs, any>;
   sx?: SxProps<Theme>;
   size?: 'small' | 'medium';
+  required?: boolean;
 }
 
 const CustomTextField = styled(TextField)<{ size: 'small' | 'medium' }>((props) => ({
@@ -25,18 +26,42 @@ const CustomTextField = styled(TextField)<{ size: 'small' | 'medium' }>((props) 
   }
 }));
 
-const FormInput: React.FC<FormInputProps> = ({ name, label, control, size = 'small', sx }) => (
-  <Stack gap="8px" sx={{ ...sx }}>
-    <label htmlFor={name}>{label}</label>
-    <Controller
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <CustomTextField id={name} variant="outlined" hiddenLabel size={size} {...field} />
-      )}
-    />
-  </Stack>
-);
+const FormInput: React.FC<FormInputProps> = ({
+  name,
+  label,
+  control,
+  size = 'small',
+  sx,
+  required = false
+}) => {
+  return (
+    <Stack gap="8px" sx={{ ...sx }}>
+      <label htmlFor={name}>{label}</label>
+      <Controller
+        control={control}
+        name={name}
+        render={({ field, fieldState, formState: { errors } }) => {
+          // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+          const hasError = !!errors?.[name];
+
+          return (
+            <CustomTextField
+              id={name}
+              variant="outlined"
+              hiddenLabel
+              size={size}
+              error={hasError}
+              {...field}
+            />
+          );
+        }}
+        rules={{
+          required
+        }}
+      />
+    </Stack>
+  );
+};
 
 FormInput.displayName = 'FormInput';
 

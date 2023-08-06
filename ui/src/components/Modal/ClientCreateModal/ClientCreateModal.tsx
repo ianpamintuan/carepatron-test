@@ -1,3 +1,4 @@
+import React, { useContext, useState } from 'react';
 import {
   Backdrop,
   Box,
@@ -11,9 +12,10 @@ import {
   Typography
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FormInput } from '../../Form';
+import { NameStep } from './NameStep';
+import { ContactStep } from './ContactStep';
+import { StateContext } from '../../../store/DataProvider';
 
 interface ClientCreateModalProps {
   isOpen: boolean;
@@ -37,31 +39,37 @@ export interface FormInputs {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
 }
 
 const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, setIsOpen }) => {
+  const { dispatch } = useContext(StateContext);
   const [activeStep, setActiveStep] = useState(0);
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    trigger
   } = useForm<FormInputs>({
     defaultValues: {
       firstName: '',
       lastName: '',
       email: '',
-      phone: ''
+      phoneNumber: ''
     }
   });
+
+  console.log('errors', errors);
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  const handleNext = () => {
-    if (activeStep !== steps.length - 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    if (activeStep === 0) {
+      const noError = await trigger(['firstName', 'lastName']);
+
+      if (noError) setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
@@ -69,7 +77,10 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const onSubmit = async (data: any) => console.log(data);
+  const onSubmit = async (data: any) => {
+    dispatch({ type: 'CREATE_CLIENT', data });
+    handleClose();
+  };
 
   return (
     <Modal
@@ -127,32 +138,8 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {activeStep === 1 ? (
-                  <React.Fragment key="step-2">
-                    <FormInput name="email" label="Email" control={control} sx={{ marginTop: 2 }} />
-                    <FormInput
-                      name="phone"
-                      label="Phone number"
-                      control={control}
-                      sx={{ marginTop: 1, marginBottom: 5 }}
-                    />
-                  </React.Fragment>
-                ) : (
-                  <React.Fragment key="step-1">
-                    <FormInput
-                      name="firstName"
-                      label="First name"
-                      control={control}
-                      sx={{ marginTop: 2 }}
-                    />
-                    <FormInput
-                      name="lastName"
-                      label="Last name"
-                      control={control}
-                      sx={{ marginTop: 1, marginBottom: 5 }}
-                    />
-                  </React.Fragment>
-                )}
+                <NameStep control={control} show={activeStep === 0} />
+                <ContactStep control={control} show={activeStep === 1} />
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                   <Button
                     color="inherit"
@@ -163,9 +150,16 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
                     Back
                   </Button>
                   <Box sx={{ flex: '1 1 auto' }} />
-                  <Button onClick={handleNext} variant="contained">
-                    {activeStep === steps.length - 1 ? 'Create client' : 'Continue'}
-                  </Button>
+                  {activeStep !== steps.length - 1 && (
+                    <Button onClick={handleNext} variant="contained">
+                      Continue
+                    </Button>
+                  )}
+                  {activeStep === steps.length - 1 && (
+                    <Button variant="contained" type="submit">
+                      Create client
+                    </Button>
+                  )}
                 </Box>
               </React.Fragment>
             )}
