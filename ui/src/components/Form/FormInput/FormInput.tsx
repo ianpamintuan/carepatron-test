@@ -1,6 +1,5 @@
-import { type Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Stack, type SxProps, TextField } from '@mui/material';
+import { Stack, type SxProps, TextField, type Theme } from '@mui/material';
 import React from 'react';
 import { type Control, Controller } from 'react-hook-form';
 import { type FormInputs } from '../../Modal/ClientCreateModal';
@@ -35,8 +34,10 @@ const FormInput: React.FC<FormInputProps> = ({
   required = false
 }) => {
   return (
-    <Stack gap="8px" sx={{ ...sx }}>
-      <label htmlFor={name}>{label}</label>
+    <Stack gap="4px" sx={{ ...sx }}>
+      <label htmlFor={name} style={{ color: 'var(--gray)' }}>
+        {label}
+      </label>
       <Controller
         control={control}
         name={name}

@@ -16,11 +16,16 @@ const Clients = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [search] = useDebounce(searchValue, 500);
 
-  const filteredClients = useCallback(() => 
-    clients.filter((item) => {
-      return item.firstName.toLowerCase().includes(search.toLowerCase()) || item.lastName.toLowerCase().includes(search.toLowerCase());
-    })
-  , [search])
+  const filteredClients = useCallback(
+    () =>
+      clients.filter((item) => {
+        return (
+          item.firstName.toLowerCase().includes(search.toLowerCase()) ||
+          item.lastName.toLowerCase().includes(search.toLowerCase())
+        );
+      }),
+    [search, clients]
+  );
 
   return (
     <Page className="Clients">
@@ -35,7 +40,7 @@ const Clients = () => {
         setSearchValue={setSearchValue}
         setShowCreateModal={setShowCreateModal}
       />
-      <Paper sx={{ margin: 'auto', marginTop: 3 }} elevation={0}>
+      <Paper sx={{ margin: 'auto', marginTop: 3, borderRadius: '8px' }} elevation={0}>
         <ClientTable clients={filteredClients()} />
       </Paper>
     </Page>

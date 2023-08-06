@@ -1,5 +1,6 @@
 import { Search } from '@mui/icons-material';
-import { Button, IconButton, InputAdornment, OutlinedInput, Stack } from '@mui/material';
+import { IconButton, InputAdornment, OutlinedInput, Stack } from '@mui/material';
+import { Button } from '../../Button';
 
 interface ClientHeaderProps {
   searchValue: string;
@@ -28,18 +29,13 @@ const ClientHeader: React.FC<ClientHeaderProps> = ({
             </IconButton>
           </InputAdornment>
         }
-        sx={{ background: '#fff' }}
+        sx={{ background: '#fff', borderRadius: '8px' }}
         value={searchValue}
         onChange={(e) => {
           setSearchValue(e.target.value);
         }}
       />
-      <Button
-        variant="contained"
-        disableElevation
-        sx={{ textTransform: 'none' }}
-        onClick={handleOpenCreateClientModal}
-      >
+      <Button onClick={handleOpenCreateClientModal} size="large">
         Create new client
       </Button>
     </Stack>

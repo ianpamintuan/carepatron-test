@@ -10,7 +10,7 @@ interface ClientTableProps {
   clients: IClient[];
 }
 
-export const ClientTable: React.FC<ClientTableProps> = ({ clients }) => {
+export const ClientTable: React.FC<ClientTableProps> = ({ clients = [] }) => {
   return (
     <TableContainer sx={{ maxWidth: '100%' }}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -22,17 +22,16 @@ export const ClientTable: React.FC<ClientTableProps> = ({ clients }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {clients.map((client) => (
-            <ClientRow key={client.id} client={client} />
+          {clients.map((client, key) => (
+            <ClientRow key={`client-${key}`} client={client} />
           ))}
-          {!clients ||
-            (clients.length === 0 && (
-              <TableRow sx={{ padding: 3 }}>
-                <TableCell component="th" scope="row">
-                  No clients
-                </TableCell>
-              </TableRow>
-            ))}
+          {clients.length === 0 && (
+            <TableRow sx={{ padding: 3 }}>
+              <TableCell component="th" scope="row" colSpan={3} sx={{ textAlign: 'center' }}>
+                No clients
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

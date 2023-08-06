@@ -20,13 +20,13 @@ export const ACTIONS = {
 
 interface Action {
   type: keyof typeof ACTIONS;
-  data: any;
+  data?: any;
 }
 
 const reducer = (state: IApplicationState, action: Action) => {
   switch (action.type) {
     case ACTIONS.FETCH_ALL_CLIENTS:
-      return { ...state, clients: action.data };
+      return { ...state, clients: state.clients };
     case ACTIONS.CREATE_CLIENT:
       return { ...state, clients: [...state.clients, action.data] };
     default:

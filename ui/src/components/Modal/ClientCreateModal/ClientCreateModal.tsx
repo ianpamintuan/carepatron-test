@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { NameStep } from './NameStep';
 import { ContactStep } from './ContactStep';
 import { StateContext } from '../../../store/DataProvider';
+import { Button as ButtonComponent } from '../../Button';
 
 interface ClientCreateModalProps {
   isOpen: boolean;
@@ -108,7 +109,7 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
               Create new client
             </Typography>
             <Button onClick={handleClose} sx={{ padding: 0, justifyContent: 'flex-end' }}>
-              <CloseIcon />
+              <CloseIcon sx={{ fill: 'var(--gray)', color: 'var(--gray)' }} fill="var(--gray)" />
             </Button>
           </Stack>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -161,22 +162,23 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                   <Button
                     color="inherit"
+                    variant="text"
                     disabled={activeStep === 0}
                     onClick={handleBack}
-                    sx={{ mr: 1 }}
+                    sx={{ textTransform: 'none' }}
                   >
                     Back
                   </Button>
                   <Box sx={{ flex: '1 1 auto' }} />
                   {activeStep !== steps.length - 1 && (
-                    <Button onClick={handleNext} variant="contained">
+                    <ButtonComponent onClick={handleNext} size="large">
                       Continue
-                    </Button>
+                    </ButtonComponent>
                   )}
                   {activeStep === steps.length - 1 && (
-                    <Button variant="contained" type="submit">
+                    <ButtonComponent type="submit" size="large">
                       Create client
-                    </Button>
+                    </ButtonComponent>
                   )}
                 </Box>
               </React.Fragment>
