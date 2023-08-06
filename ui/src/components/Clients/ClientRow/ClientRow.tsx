@@ -1,10 +1,10 @@
 import { TableCell, TableRow } from '@mui/material';
 
-export interface IProps {
+export interface ClientRowProps {
   client: IClient;
 }
 
-export const ClientRow = ({ client }: IProps) => {
+export const ClientRow: React.FC<ClientRowProps> = ({ client }) => {
   const { id, firstName, lastName, email, phoneNumber } = client;
 
   return (

@@ -8,12 +8,12 @@ import {
   Step,
   StepLabel,
   Stepper,
-  TextField,
   Typography
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormInput } from '../../Form';
 
 interface ClientCreateModalProps {
   isOpen: boolean;
@@ -33,21 +33,36 @@ const style = {
 
 const steps = ['Personal details', 'Contact details'];
 
+export interface FormInputs {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}
+
 const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, setIsOpen }) => {
   const [activeStep, setActiveStep] = useState(0);
   const {
-    register,
+    control,
     handleSubmit,
-    watch,
     formState: { errors }
-  } = useForm();
+  } = useForm<FormInputs>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: ''
+    }
+  });
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep !== steps.length - 1) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -114,25 +129,28 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
               <React.Fragment>
                 {activeStep === 1 ? (
                   <React.Fragment key="step-2">
-                  <Stack>
-                  <label htmlFor="email">Email</label>
-                  <TextField id='email' variant="outlined" hiddenLabel  {...register("email")} />
-                  </Stack>
-                  <Stack>
-                  <label htmlFor="phone">Phone number</label>
-                  <TextField id='phone' variant="outlined" hiddenLabel  {...register("phone")}  />
-                  </Stack>
-                </React.Fragment>
+                    <FormInput name="email" label="Email" control={control} sx={{ marginTop: 2 }} />
+                    <FormInput
+                      name="phone"
+                      label="Phone number"
+                      control={control}
+                      sx={{ marginTop: 1, marginBottom: 5 }}
+                    />
+                  </React.Fragment>
                 ) : (
                   <React.Fragment key="step-1">
-                    <Stack>
-                    <label htmlFor="firstName">First name</label>
-                    <TextField id='firstName' variant="outlined" hiddenLabel   {...register("firstName")} />
-                    </Stack>
-                    <Stack>
-                    <label htmlFor="lastName">Last name</label>
-                    <TextField id='lastName' variant="outlined" hiddenLabel  {...register("lastName")}/>
-                    </Stack>
+                    <FormInput
+                      name="firstName"
+                      label="First name"
+                      control={control}
+                      sx={{ marginTop: 2 }}
+                    />
+                    <FormInput
+                      name="lastName"
+                      label="Last name"
+                      control={control}
+                      sx={{ marginTop: 1, marginBottom: 5 }}
+                    />
                   </React.Fragment>
                 )}
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

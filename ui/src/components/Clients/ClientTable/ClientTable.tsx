@@ -4,10 +4,13 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { ClientRow } from '../ClientRow';
 
-export const ClientTable = ({ clients }: { clients: IClient[] }) => {
+interface ClientTableProps {
+  clients: IClient[];
+}
+
+export const ClientTable: React.FC<ClientTableProps> = ({ clients }) => {
   return (
     <TableContainer sx={{ maxWidth: '100%' }}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
