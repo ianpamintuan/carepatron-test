@@ -36,7 +36,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ control, label, name, required 
                 className={`PhoneInput ${hasError ? 'PhoneInput--hasError' : ''}`}
               />
               {hasError && (
-                <p className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeSmall MuiFormHelperText-contained css-k4qjio-MuiFormHelperText-root ErrorMessage">
+                <p className="ErrorMessage">
                   {errors[name]?.type === 'format' ? 'Invalid format.' : errors[name]?.message}
                 </p>
               )}
