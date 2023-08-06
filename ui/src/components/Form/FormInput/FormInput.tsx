@@ -11,6 +11,7 @@ interface FormInputProps {
   sx?: SxProps<Theme>;
   size?: 'small' | 'medium';
   required?: boolean;
+  type?: React.HTMLInputTypeAttribute;
 }
 
 const CustomTextField = styled(TextField)<{ size: 'small' | 'medium' }>((props) => ({
@@ -22,6 +23,9 @@ const CustomTextField = styled(TextField)<{ size: 'small' | 'medium' }>((props) 
   },
   '& .MuiInputBase-input': {
     padding: props.size === 'small' ? '12px 10px' : '16.5px 14px'
+  },
+  '& .MuiFormHelperText-root.Mui-error': {
+    margin: '4px 0 0 0'
   }
 }));
 
@@ -31,7 +35,8 @@ const FormInput: React.FC<FormInputProps> = ({
   control,
   size = 'small',
   sx,
-  required = false
+  required = false,
+  type = 'text'
 }) => {
   return (
     <Stack gap="4px" sx={{ ...sx }}>
@@ -52,12 +57,22 @@ const FormInput: React.FC<FormInputProps> = ({
               hiddenLabel
               size={size}
               error={hasError}
+              type={type}
+              {...(hasError && { helperText: errors[name]?.message })}
               {...field}
             />
           );
         }}
         rules={{
-          required
+          ...(required && {
+            required: 'This field is required.'
+          }),
+          ...(type === 'email' && {
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format.'
+            }
+          })
         }}
       />
     </Stack>
