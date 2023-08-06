@@ -59,8 +59,6 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
     }
   });
 
-  console.log('errors', errors);
-
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -117,12 +115,32 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
             <Stepper activeStep={activeStep} sx={{ marginTop: 3 }}>
               {steps.map((label, index) => {
                 const stepProps: { completed?: boolean } = {};
-                const labelProps: {
-                  optional?: React.ReactNode;
-                } = {};
+
                 return (
-                  <Step key={label} {...stepProps}>
-                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  <Step
+                    key={label}
+                    {...stepProps}
+                    sx={{
+                      '& .MuiStepLabel-root .Mui-completed': {
+                        color: 'var(--green)' // circle color (COMPLETED)
+                      },
+                      '& .MuiStepLabel-label.Mui-completed': {
+                        color: 'black', // Just text label (COMPLETED)
+                        fontWeight: 600
+                      },
+                      '& .MuiStepLabel-root .Mui-active': {
+                        color: 'var(--blue)' // circle color (ACTIVE)
+                      },
+                      '& .MuiStepLabel-label.Mui-active': {
+                        color: 'black', // Just text label (ACTIVE)
+                        fontWeight: 600
+                      },
+                      '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                        fill: 'white' // circle's number (ACTIVE)
+                      }
+                    }}
+                  >
+                    <StepLabel>{label}</StepLabel>
                   </Step>
                 );
               })}
