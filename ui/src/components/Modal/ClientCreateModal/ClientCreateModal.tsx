@@ -11,8 +11,8 @@ import {
   Stepper,
   Typography
 } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useForm } from 'react-hook-form';
 import { NameStep } from './NameStep';
 import { ContactStep } from './ContactStep';
@@ -162,23 +162,25 @@ const ClientCreateModal: React.FC<ClientCreateModalProps> = ({ isOpen = false, s
                 <NameStep control={control} show={activeStep === 0} />
                 <ContactStep control={control} show={activeStep === 1} />
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                  <Button
-                    color="inherit"
-                    variant="text"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    sx={{ textTransform: 'none' }}
-                  >
-                    Back
-                  </Button>
+                  {activeStep === steps.length - 1 && (
+                    <Button
+                      color="inherit"
+                      variant="text"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      sx={{ textTransform: 'none', color: 'var(--blue)', gap: '12px' }}
+                    >
+                      <ArrowBackIcon fontSize="small" sx={{ fill: 'var(--blue)' }} /> Back
+                    </Button>
+                  )}
                   <Box sx={{ flex: '1 1 auto' }} />
                   {activeStep !== steps.length - 1 && (
-                    <ButtonComponent onClick={handleNext} size="large">
+                    <ButtonComponent onClick={handleNext} size="large" sx={{ minWidth: '140px' }}>
                       Continue
                     </ButtonComponent>
                   )}
                   {activeStep === steps.length - 1 && (
-                    <ButtonComponent type="submit" size="large">
+                    <ButtonComponent type="submit" size="large" sx={{ minWidth: '140px' }}>
                       Create client
                     </ButtonComponent>
                   )}
